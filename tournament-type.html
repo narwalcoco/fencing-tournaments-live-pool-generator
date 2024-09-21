@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Tournament Type</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Choose Tournament Type</h1>
+        <form id="tournamentForm" action="competitor-names.html">
+            <label for="tournamentType">Tournament Type:</label>
+            <select id="tournamentType" name="tournamentType" required>
+                <option value="local">Local</option>
+                <option value="school">School</option>
+                <option value="regional">Regional</option>
+                <option value="national">National</option>
+            </select>
+            <button type="submit">Next</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('tournamentForm').addEventListener('submit', function(e) {
+            const tournamentType = document.getElementById('tournamentType').value;
+            localStorage.setItem('tournamentType', tournamentType);
+        });
+    </script>
+</body>
+</html>
