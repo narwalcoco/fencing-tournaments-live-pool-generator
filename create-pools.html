@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Pools</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pools for Your Tournament</h1>
+        <div id="result"></div>
+        <button onclick="location.href='tournament-type.html';">Start Over</button>
+    </div>
+
+    <script>
+        const maxPoolSize = {
+            'local': 8,
+            'school': 8,
+            'regional': 7,
+            'national': 7
+        };
+
+        const tournamentType = localStorage.getItem('tournamentType');
+        const competitors = JSON.parse(localStorage.getItem('competitors'));
+
+        const poolSize = maxPoolSize[tournamentType];
+        const pools = calculatePools(competitors, poolSize);
+
+        displayPools(pools);
+
+        function calculatePools(competitors, poolSize) {
+            const pools = [];
+            const numPools = Math.ceil(competitors.length / poolSize);
+
+            for (let i = 0; i < numPools; i++) {
+                pools[i] = [];
+            }
+
+            competitors.forEach((competitor, index) => {
+                pools[index % numPools].push(competitor);
+            });
+
+            return pools;
+        }
+
+        function displayPools(pools) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<h2>Pools</h2>`;
+
+            pools.forEach((pool, index) => {
+                const poolDiv = document.createElement('div');
+                poolDiv.innerHTML = `<h3>Pool ${index + 1}</h3><ul>${pool.map(name => `<li>${name}</li>`).join('')}</ul>`;
+                resultDiv.appendChild(poolDiv);
+            });
+        }
+    </script>
+</body>
+</html>
