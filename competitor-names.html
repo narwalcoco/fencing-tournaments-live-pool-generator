@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Competitor Names</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Competitor Names</h1>
+        <form id="competitorForm" action="calculate-pools.html">
+            <label for="competitors">Enter competitor names separated by commas:</label>
+            <textarea id="competitors" name="competitors" rows="5" required></textarea>
+            <button type="submit">Next</button>
+        </form>
+
+        <p id="errorMessage" style="color: red;"></p>
+    </div>
+
+    <script>
+        document.getElementById('competitorForm').addEventListener('submit', function(e) {
+            const competitors = document.getElementById('competitors').value.split(',').map(name => name.trim()).filter(name => name);
+            if (competitors.length < 4) {
+                e.preventDefault();
+                document.getElementById('errorMessage').textContent = 'You must enter at least 4 competitors.';
+            } else {
+                localStorage.setItem('competitors', JSON.stringify(competitors));
+            }
+        });
+    </script>
+</body>
+</html>
