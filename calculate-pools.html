@@ -50,7 +50,44 @@
 
             pools.forEach((pool, index) => {
                 const poolDiv = document.createElement('div');
-                poolDiv.innerHTML = `<h3>Pool ${index + 1}</h3><ul>${pool.map(name => `<li>${name}</li>`).join('')}</ul>`;
+                poolDiv.classList.add('pool');
+                
+                poolDiv.innerHTML = `
+                    <h3>Pool ${index + 1}</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Competitor</th>
+                                <th>1</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                                <th>5</th>
+                                <th>6</th>
+                                <th>7</th>
+                                <th>8</th>
+                                <th>V</th>
+                                <th>TS</th>
+                                <th>TR</th>
+                                <th>Ind</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${pool.map((competitor, i) => `
+                                <tr>
+                                    <td>${i + 1}</td>
+                                    <td>${competitor}</td>
+                                    ${[...Array(8).keys()].map(() => `<td></td>`).join('')}
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
                 resultDiv.appendChild(poolDiv);
             });
         }
